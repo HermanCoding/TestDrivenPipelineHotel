@@ -1,0 +1,119 @@
+name: Test and publish
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4.1.1
+
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v4.0.0
+        with:
+          dotnet-version: '8'
+      
+      - name: Cache dependencies
+        uses: actions/cache@v4.0.0
+        with:
+          path: ~/.nuget
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: Test
+        run: dotnet test --no-restore --verbosity minimal
+
+      - name: Print job complete
+        run: echo "Test job complete time $(date)!"
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test-project
+
+    steps:
+      - name: Build job start
+        run: echo "Build job start time $(date)!"
+
+      - name: Check out code
+        uses: actions/checkout@v4.1.1
+
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v4.0.0
+        with:
+          dotnet-version: '8'
+
+      - name: Cache dependencies
+        uses: actions/cache@v4.0.0
+        with:
+          path: ~/.nuget
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: dotnet publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp -f=net8.0
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v3
+        with:
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/myapp
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
+
+    steps:
+      - name: Deploy job start
+        run: echo "Deploy job start time $(date)!"
+
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: .net-app
+      
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.__clientidsecretname__ }}
+          tenant-id: ${{ secrets.__tenantidsecretname__ }}
+          subscription-id: ${{ secrets.__subscriptionidsecretname__ }}
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'TestDrivenPipelineHotel'
+          slot-name: 'production'
+          package: .
+
+  create-issue:
+    runs-on: ubuntu-latest
+    needs: test-project
+    if: failure()
+    steps:
+      - name: Print message
+        run: |
+              echo "Test failed. . . "
+              echo "Creating issue."
