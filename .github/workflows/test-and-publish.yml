@@ -111,4 +111,3 @@ jobs:
       - name: Print message
         run: |
               echo "Test failed. . . "
-              echo "Creating issue."
