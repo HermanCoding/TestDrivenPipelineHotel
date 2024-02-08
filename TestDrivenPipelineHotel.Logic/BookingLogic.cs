@@ -11,7 +11,7 @@ namespace TestDrivenPipelineHotel.Logic
 
         public BookingModel SetCheckInDate(DateTime date, BookingModel booking)
         {
-            booking.CheckInDate = date;
+            booking.DateFrom = date;
             return booking;
         }
     }
