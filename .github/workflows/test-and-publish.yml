@@ -91,17 +91,14 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
-          name: .net-app
-      
-      - name: Extract artifact
-        run: mkdir ./deploy && tar -xzvf .net-app/*.tar.gz -C ./deploy
+          name: ./deploy/
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'TestDrivenPipelineHotel'
           slot-name: 'production'
-          package: ./deploy
+          package: ./deploy/
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
 
   create-issue:
