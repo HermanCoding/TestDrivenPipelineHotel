@@ -5,6 +5,45 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to Hotel
+        <img src="./Images/wololo-age-of-empires.gif" alt="You feel converted." class="ml-3" style="width: 200px;">
+    </h1>
 </div>
+
+<div class="text-left">
+    <h6 class="display-6">
+        Stay Awhile and Listen
+    </h6>
+</div>
+
+<form method="post">
+
+    <!--Room Type Selector-->
+    <div class="form-control">
+        <div class="input-group-lg">
+            <label class="form-label" for="room-type" asp-for="RoomType">Room type:</label>
+            <select class="form-select" asp-for="RoomType">
+                <option>Select room type</option>
+                <option value="RT1">Double</option>
+                <option value="RT2">Twin</option>
+                <option value="RT3">Deluxe</option>
+                <option value="RT4">Single</option>
+                <option value="RT5">Suite</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- From Date Selector -->
+    <div class="form-group mt-3">
+        <label for="from-date" asp-for="FromDate">From Date</label>
+        <input type="date" class="form-control" asp-for="FromDate" required>
+    </div>
+
+    <!-- To Date Selector -->
+    <div class="form-group mt-3">
+        <label for="to-date" asp-for="ToDate">To Date</label>
+        <input type="date" class="form-control" asp-for="ToDate" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Search</button>
+</form>
