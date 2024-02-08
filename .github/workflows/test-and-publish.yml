@@ -70,9 +70,9 @@ jobs:
         run: dotnet publish -c Release -o ./publish/
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.3.1
         with:
-          name: .net-app
+          name: deploy
           path: ./publish/
 
   deploy:
@@ -89,9 +89,10 @@ jobs:
         run: echo "Deploy job start time $(date)!"
 
       - name: Download artifact from build job
-        uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4.1.2
         with:
-          name: ./deploy/
+          name: deploy
+          path: ./deploy/
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
