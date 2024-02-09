@@ -3,11 +3,11 @@ using TestDrivenPipelineHotel.Data.Models;
 
 namespace TestDrivenPipelineHotel.Data.Repositories
 {
-    internal class BookingRepository : IBookingRepository
+    public class BookingRepository : IBookingRepository
     {
         public void Add(BookingModel booking)
         {
-            FakeDatabase.Bookings?.Add(booking);
+            FakeDatabase.Bookings.Add(booking);
         }
 
         public IEnumerable<BookingModel> GetAllBookings()

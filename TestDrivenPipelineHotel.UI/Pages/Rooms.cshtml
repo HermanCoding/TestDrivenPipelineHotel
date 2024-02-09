@@ -1,6 +1,29 @@
 ﻿@page
+@using TestDrivenPipelineHotel.Data
 @model PrivacyModel
 @{
     ViewData["Title"] = "Rooms";
 }
 <h1>Our Rooms</h1>
+@if (FakeDatabase.Rooms.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Room ID</th>
+                <th>Room Type</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var room in FakeDatabase.Rooms)
+            {
+                <tr>
+                    <td>@room.RoomID</td>
+                    <td>@room.RoomTypeID</td> <!-- You would join this with RoomType to get the typeName -->
+                    <td>@room.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

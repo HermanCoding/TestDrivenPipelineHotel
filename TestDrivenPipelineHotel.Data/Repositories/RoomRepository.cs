@@ -3,11 +3,11 @@ using TestDrivenPipelineHotel.Data.Models;
 
 namespace TestDrivenPipelineHotel.Data.Repositories
 {
-    internal class RoomRepository : IRoomRepository
+    public class RoomRepository : IRoomRepository
     {
         public void Add(RoomModel room)
         {
-            FakeDatabase.Rooms?.Add(room);
+            FakeDatabase.Rooms.Add(room);
         }
     }
 }
