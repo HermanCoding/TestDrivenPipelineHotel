@@ -17,8 +17,6 @@
 </div>
 
 <form method="post">
-
-    <!--Room Type Selector-->
     <div class="form-control">
         <div class="input-group-lg">
             <label class="form-label" for="room-type" asp-for="RoomType">Room type:</label>
@@ -32,14 +30,10 @@
             </select>
         </div>
     </div>
-
-    <!-- From Date Selector -->
     <div class="form-group mt-3">
         <label for="from-date" asp-for="FromDate">From Date</label>
         <input type="date" class="form-control" asp-for="FromDate" required>
     </div>
-
-    <!-- To Date Selector -->
     <div class="form-group mt-3">
         <label for="to-date" asp-for="ToDate">To Date</label>
         <input type="date" class="form-control" asp-for="ToDate" required>
