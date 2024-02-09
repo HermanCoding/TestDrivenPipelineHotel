@@ -19,5 +19,10 @@ namespace TestDrivenPipelineHotel.Logic.Services
         {
             throw new NotImplementedException();
         }
+
+        string IRoomService.GetRoomTypeById(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

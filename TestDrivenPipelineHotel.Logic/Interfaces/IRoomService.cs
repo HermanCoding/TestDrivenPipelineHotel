@@ -2,6 +2,6 @@
 {
     public interface IRoomService
     {
-        object GetRoomTypeById(string v);
+        string GetRoomTypeById(string v);
     }
 }
