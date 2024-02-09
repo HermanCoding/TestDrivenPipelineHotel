@@ -1,8 +1,9 @@
 ﻿using TestDrivenPipelineHotel.Data.Models;
+using TestDrivenPipelineHotel.Logic.Interfaces;
 
-namespace TestDrivenPipelineHotel.Logic
+namespace TestDrivenPipelineHotel.Logic.Services
 {
-    public class SearchLogic
+    public class RoomService : IRoomService
     {
         public List<RoomModel> SearchRoom(DateTime dateFrom, DateTime dateTo, string roomType)
         {

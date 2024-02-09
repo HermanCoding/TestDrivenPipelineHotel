@@ -1,4 +1,4 @@
-﻿using TestDrivenPipelineHotel.Logic;
+﻿using TestDrivenPipelineHotel.Logic.Services;
 
 namespace TestDrivenPipelineHotel.Tests
 {
@@ -8,7 +8,7 @@ namespace TestDrivenPipelineHotel.Tests
         public void SearchRoom_ReturnsListOfRooms()
         {
             //Given
-            SearchLogic searchLogic = new SearchLogic();
+            RoomService searchLogic = new RoomService();
             var dateFrom = new DateTime(2024, 01, 01);
             var dateTo = new DateTime(2024, 01, 10);
             // RoomTypeModel roomType = new();

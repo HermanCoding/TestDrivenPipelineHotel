@@ -1,8 +1,9 @@
 ﻿using TestDrivenPipelineHotel.Data.Models;
+using TestDrivenPipelineHotel.Logic.Interfaces;
 
-namespace TestDrivenPipelineHotel.Logic
+namespace TestDrivenPipelineHotel.Logic.Services
 {
-    public class BookingLogic
+    public class BookingService : IBookingService
     {
         public BookingModel SetCheckInDate(DateTime date, BookingModel booking)
         {

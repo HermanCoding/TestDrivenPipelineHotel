@@ -11,17 +11,19 @@
         <thead>
             <tr>
                 <th>Room ID</th>
-                <th>Room Type</th>
+                <th>Type Name</th>
                 <th>Price</th>
+				<th>Description</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var room in FakeDatabase.Rooms)
+            @foreach (var roomDetail in FakeDatabase.Rooms)
             {
                 <tr>
-                    <td>@room.RoomID</td>
-                    <td>@room.RoomTypeID</td> <!-- You would join this with RoomType to get the typeName -->
-                    <td>@room.Price</td>
+@*                     <td>@roomDetail.RoomID</td>
+                    <td>@roomDetail.TypeName</td>
+                    <td>@roomDetail.Price.ToString("C")</td>
+                    <td>@roomDetail.Description</td> *@
                 </tr>
             }
         </tbody>
