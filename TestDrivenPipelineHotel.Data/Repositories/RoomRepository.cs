@@ -1,6 +1,13 @@
-﻿namespace TestDrivenPipelineHotel.Data.Repositories
+﻿using TestDrivenPipelineHotel.Data.Interfaces;
+using TestDrivenPipelineHotel.Data.Models;
+
+namespace TestDrivenPipelineHotel.Data.Repositories
 {
     internal class RoomRepository : IRoomRepository
     {
+        public void Add(RoomModel room)
+        {
+            FakeDatabase.Rooms?.Add(room);
+        }
     }
 }

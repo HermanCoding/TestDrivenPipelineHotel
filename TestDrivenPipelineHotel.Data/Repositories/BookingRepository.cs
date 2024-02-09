@@ -5,17 +5,12 @@ namespace TestDrivenPipelineHotel.Data.Repositories
 {
     internal class BookingRepository : IBookingRepository
     {
-        public void DeleteBookingById(int id)
+        public void Add(BookingModel booking)
         {
-            throw new NotImplementedException();
+            FakeDatabase.Bookings?.Add(booking);
         }
 
         public IEnumerable<BookingModel> GetAllBookings()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void PostBooking(BookingModel booking)
         {
             throw new NotImplementedException();
         }
