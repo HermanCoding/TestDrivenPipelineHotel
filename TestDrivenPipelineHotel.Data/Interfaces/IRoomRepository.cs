@@ -5,5 +5,6 @@ namespace TestDrivenPipelineHotel.Data.Interfaces
     public interface IRoomRepository
     {
         public void Add(RoomModel room);
+        List<RoomModel> GetAllRooms();
     }
 }

@@ -9,5 +9,10 @@ namespace TestDrivenPipelineHotel.Data.Repositories
         {
             FakeDatabase.Rooms.Add(room);
         }
+
+        public List<RoomModel> GetAllRooms()
+        {
+            return FakeDatabase.Rooms;
+        }
     }
 }

@@ -1,13 +1,18 @@
 using TestDrivenPipelineHotel.Data;
 using TestDrivenPipelineHotel.Data.Interfaces;
 using TestDrivenPipelineHotel.Data.Repositories;
+using TestDrivenPipelineHotel.Logic.Interfaces;
+using TestDrivenPipelineHotel.Logic.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register repository interfaces with their implementations
+// Register repository interfaces with their implementations "dependency injection (DI)"
 builder.Services.AddSingleton<IRoomRepository, RoomRepository>();
 builder.Services.AddSingleton<IBookingRepository, BookingRepository>();
 builder.Services.AddSingleton<IRoomTypeRepository, RoomTypeRepository>();
+
+builder.Services.AddSingleton<IRoomService, RoomService>();
+builder.Services.AddSingleton<IBookingService, BookingService>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();

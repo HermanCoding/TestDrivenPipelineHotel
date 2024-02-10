@@ -1,4 +1,7 @@
 ﻿using FluentAssertions;
+using TestDrivenPipelineHotel.Data.Interfaces;
+using TestDrivenPipelineHotel.Data.Models;
+using TestDrivenPipelineHotel.Data.Repositories;
 using TestDrivenPipelineHotel.Logic.Interfaces;
 using TestDrivenPipelineHotel.Logic.Services;
 
@@ -8,20 +11,24 @@ namespace TestDrivenPipelineHotel.Tests
     {
         private readonly IRoomService _roomService;
 
-        [Fact]
-        public void SearchRoom_ReturnsListOfRooms()
+        public RoomTests()
         {
-            //Given
-            RoomService searchLogic = new RoomService();
-            var dateFrom = new DateTime(2024, 01, 01);
-            var dateTo = new DateTime(2024, 01, 10);
-            var roomType = _roomService.GetRoomTypeById("RT4");
+            IRoomRepository roomRepository = new RoomRepository();
+            _roomService = new RoomService(roomRepository);
+        }
 
-            //When
-            var searchedRooms = searchLogic.SearchRoom(dateFrom, dateTo, roomType);
 
-            //Then
-            searchedRooms.Should().NotBeNull();
+        [Fact]
+        public void GetAllRooms_ReturnsListOfRooms()
+        {
+            // Given
+            // Setup in constructor
+
+            // When
+            var rooms = _roomService.GetAllRooms();
+            // Then
+            rooms.Should().NotBeNullOrEmpty();
+            rooms.Should().BeOfType<List<RoomModel>>();
         }
     }
 }
