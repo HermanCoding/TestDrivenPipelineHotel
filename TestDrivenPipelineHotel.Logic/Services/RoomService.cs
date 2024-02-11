@@ -8,7 +8,7 @@ namespace TestDrivenPipelineHotel.Logic.Services
     {
         private readonly IRoomRepository _roomRepository;
 
-        public RoomService(IRoomRepository roomRepository)
+        public RoomService(IRoomRepository roomRepository, IRoomTypeRepository roomTypeRepository)
         {
             _roomRepository = roomRepository;
         }

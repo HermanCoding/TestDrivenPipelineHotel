@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using TestDrivenPipelineHotel.Data;
 using TestDrivenPipelineHotel.Data.Interfaces;
 using TestDrivenPipelineHotel.Data.Models;
 using TestDrivenPipelineHotel.Data.Repositories;
@@ -7,16 +8,25 @@ using TestDrivenPipelineHotel.Logic.Services;
 
 namespace TestDrivenPipelineHotel.Tests
 {
-    public class RoomTests
+    public class RoomTests : IDisposable
     {
         private readonly IRoomService _roomService;
 
         public RoomTests()
         {
             IRoomRepository roomRepository = new RoomRepository();
-            _roomService = new RoomService(roomRepository);
+            IRoomTypeRepository roomTypeRepository = new RoomTypeRepository();
+            IBookingRepository bookingRepository = new BookingRepository();
+            _roomService = new RoomService(roomRepository, roomTypeRepository);
+            TestDataInitializer.Initialize(roomRepository, bookingRepository, roomTypeRepository);
         }
 
+        public void Dispose()
+        {
+            FakeDatabase.Bookings.Clear();
+            FakeDatabase.Rooms.Clear();
+            FakeDatabase.RoomTypes.Clear();
+        }
 
         [Fact]
         public void GetAllRooms_ReturnsListOfRooms()
@@ -30,5 +40,20 @@ namespace TestDrivenPipelineHotel.Tests
             rooms.Should().NotBeNullOrEmpty();
             rooms.Should().BeOfType<List<RoomModel>>();
         }
+
+        [Fact]
+        public void GetRoom_ReturnsRoomModel()
+        {
+            // Given
+            // Setup in constructor
+            // When
+            // Then
+        }
+
+
+        // Given
+        // Setup in constructor
+        // When
+        // Then
     }
 }
