@@ -47,7 +47,10 @@ namespace TestDrivenPipelineHotel.Tests
             // Given
             // Setup in constructor
             // When
+            var room = _roomService.GetRoom();
             // Then
+            room.Should().NotBeNull();
+            room.Should().BeOfType<RoomModel>();
         }
 
 

@@ -18,6 +18,11 @@ namespace TestDrivenPipelineHotel.Logic.Services
             return _roomRepository.GetAllRooms();
         }
 
+        public object GetRoom()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<RoomModel> SearchRoom(DateTime dateFrom, DateTime dateTo, string roomType)
         {
             throw new NotImplementedException();
