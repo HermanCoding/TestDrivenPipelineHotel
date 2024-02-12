@@ -8,5 +8,6 @@ namespace TestDrivenPipelineHotel.Data.Models
         public required string RoomID { get; set; }
         public required string RoomTypeID { get; set; }
         public decimal? Price { get; set; }
+        public Exception? RoomException { get; set; }
     }
 }

@@ -18,9 +18,17 @@ namespace TestDrivenPipelineHotel.Logic.Services
             return _roomRepository.GetAllRooms();
         }
 
-        public object GetRoom()
+        public RoomModel GetRoom(string roomId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _roomRepository.GetRoomById(roomId);
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException(); // TODO Vet inte om det är detta jag vill retunera.
+            }
+
         }
 
         public List<RoomModel> SearchRoom(DateTime dateFrom, DateTime dateTo, string roomType)

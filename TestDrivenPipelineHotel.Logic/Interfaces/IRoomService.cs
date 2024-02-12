@@ -5,6 +5,6 @@ namespace TestDrivenPipelineHotel.Logic.Interfaces
     public interface IRoomService
     {
         List<RoomModel> GetAllRooms();
-        object GetRoom();
+        public RoomModel GetRoom(string room);
     }
 }
