@@ -1,4 +1,5 @@
-﻿using TestDrivenPipelineHotel.Data.Interfaces;
+﻿using TestDrivenPipelineHotel.Data;
+using TestDrivenPipelineHotel.Data.Interfaces;
 using TestDrivenPipelineHotel.Data.Models;
 using TestDrivenPipelineHotel.Logic.Interfaces;
 
@@ -35,9 +36,43 @@ namespace TestDrivenPipelineHotel.Logic.Services
             return room;
         }
 
-        public List<RoomModel> SearchRoom(DateTime dateFrom, DateTime dateTo, string roomType)
+        public List<RoomModel> SearchRooms(DateTime dateFrom, DateTime dateTo, string roomType)
         {
-            throw new NotImplementedException();
+            // You shall not pass!! (guard clause)
+            if (string.IsNullOrWhiteSpace(roomType))
+            {
+                throw new InvalidDataException("RoomType cannot be null or an empty string.");
+            }
+            if (dateFrom < DateTime.Today) //Should probably be Now but thats a later problem.
+            {
+                throw new InvalidDataException("The 'dateFrom' cant be in the past.");
+            }
+            if (dateFrom > dateTo)
+            {
+                throw new InvalidDataException("The 'dateFrom' must be before 'dateTo'.");
+            }
+
+            // fetch all rooms
+            var allRooms = _roomRepository.GetAllRooms();
+
+            // Filter based on room type
+            var filteredRoomsByType = allRooms.Where(room =>
+                FakeDatabase.RoomTypes.Any(rt => rt.TypeID == room.RoomTypeID && rt.TypeName == roomType)).ToList();
+
+            // Filter booked rooms
+            var availableRooms = filteredRoomsByType.Where(room =>
+                !FakeDatabase.Bookings.Any(booking =>
+                    booking.RoomID == room.RoomID &&
+                    ((dateFrom < booking.DateTo && dateTo > booking.DateFrom) || // Overlapping current booking
+                     (dateFrom == booking.DateFrom || dateTo == booking.DateTo)) // Identical booking already exists
+                )).ToList();
+
+            if (availableRooms.Count == 0)
+            {
+                throw new ArgumentException("No available room(s) found with your search criteria.");
+            }
+
+            return availableRooms;
         }
     }
 }

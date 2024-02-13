@@ -130,9 +130,131 @@ namespace TestDrivenPipelineHotel.Tests
             room.RoomID.Should().Be(roomId);
         }
 
-        // Given
-        // Setup in constructor
-        // When
-        // Then
+        [Fact]
+        public void SearchRooms_ReturnsListOfRoomsWithType()
+        {
+            // Given
+            // Setup in constructor
+            DateTime dateFrom = DateTime.Now.AddMinutes(30);
+            DateTime dateTo = DateTime.Now.AddMinutes(30).AddDays(3);
+            string roomType = "Twin";
+
+            // When
+            var rooms = _roomService.SearchRooms(dateFrom, dateTo, roomType);
+
+            // Then
+            rooms.Should().NotBeNullOrEmpty();
+            rooms.Should().BeOfType<List<RoomModel>>();
+        }
+
+
+        [Fact]
+        public void SearchRooms_NoRoomAvailableBookingConflict_ThrowsArgumentException()
+        {
+            // Given
+            // Setup in constructor
+            DateTime dateFrom = DateTime.Now;
+            DateTime dateTo = DateTime.Now.AddDays(5);
+            string roomType = "Suite";
+            // When
+            Action action = () => _roomService.SearchRooms(dateFrom, dateTo, roomType);
+
+            // Then
+            action.Should().Throw<ArgumentException>("No available room(s) found with your search criteria.");
+        }
+
+        [Fact]
+        public void SearchRooms_DateInPast_InvalidDataException()
+        {
+            // Given
+            // Setup in constructor
+            DateTime dateFrom = DateTime.Now.AddDays(-2);
+            DateTime dateTo = DateTime.Now.AddDays(5);
+            string roomType = "Double";
+            // When
+            Action action = () => _roomService.SearchRooms(dateFrom, dateTo, roomType);
+
+            // Then
+            action.Should().Throw<InvalidDataException>();
+        }
+
+        [Fact]
+        public void SearchRooms_DateToBeforeDateFrom_InvalidDataException()
+        {
+            // Given
+            // Setup in constructor
+            DateTime dateFrom = DateTime.Now;
+            DateTime dateTo = DateTime.Now.AddDays(-1);
+            string roomType = "Double";
+            // When
+            Action action = () => _roomService.SearchRooms(dateFrom, dateTo, roomType);
+
+            // Then
+            action.Should().Throw<InvalidDataException>();
+        }
+
+        [Fact]
+        public void SearchRooms_RoomTypeDoesNotExist_ThrowsArgumentException()
+        {
+            // Given
+            // Setup in constructor
+            var dateFrom = DateTime.Now.AddDays(1);
+            var dateTo = DateTime.Now.AddDays(4);
+            var roomType = "NonExistentType";
+
+            // When
+            Action action = () => _roomService.SearchRooms(dateFrom, dateTo, roomType);
+
+            // Then
+            action.Should().Throw<ArgumentException>("No available room(s) found with your search criteria.");
+        }
+
+        [Fact]
+        public void SearchRooms_DateRangeOverlapsButRoomsAvailable_ReturnsAvailableRooms()
+        {
+            // Given
+            // Setup in constructor
+            DateTime dateFrom = DateTime.Now;
+            DateTime dateTo = DateTime.Now.AddDays(5);
+            string roomType = "Single";
+
+            // When
+            var rooms = _roomService.SearchRooms(dateFrom, dateTo, roomType);
+
+            // Then
+            rooms.Should().NotBeEmpty("because there should be available rooms even with overlapping bookings");
+        }
+
+        [Fact]
+        public void SearchRooms_DateRangeIsSameDay_ReturnsListOfRoomsWithType()
+        {
+            // Given
+            // Setup in constructor
+            DateTime dateFrom = DateTime.Now.AddDays(1);
+            DateTime dateTo = dateFrom;
+            string roomType = "Twin";
+
+            // When
+            var rooms = _roomService.SearchRooms(dateFrom, dateTo, roomType);
+
+            // Then
+            rooms.Should().NotBeNullOrEmpty("because rooms should be available for bookings starting and ending on the same day");
+        }
+
+        [Fact]
+        public void SearchRooms_RoomTypeIsWhitespace_ThrowsInvalidDataException()
+        {
+            // Given
+            // Setup in constructor
+            DateTime dateFrom = DateTime.Now.AddDays(1);
+            DateTime dateTo = DateTime.Now.AddDays(2);
+            string roomType = "   "; // Whitespace string
+
+            // When
+            Action action = () => _roomService.SearchRooms(dateFrom, dateTo, roomType);
+
+            // Then
+            action.Should().Throw<InvalidDataException>("because room type cannot be a whitespace string");
+        }
     }
 }

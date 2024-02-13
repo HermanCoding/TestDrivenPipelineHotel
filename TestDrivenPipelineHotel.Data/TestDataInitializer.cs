@@ -22,9 +22,13 @@ namespace TestDrivenPipelineHotel.Data
             roomTypeRepository.Add(new RoomTypeModel { TypeID = "RT1", TypeName = "Single", Description = "A single room" });
             roomTypeRepository.Add(new RoomTypeModel { TypeID = "RT5", TypeName = "Suite", Description = "A suite room" });
 
-            bookingRepository.Add(new BookingModel { BookingID = "B1", DateFrom = new DateTime(2024, 02, 01), DateTo = new DateTime(2024 - 02 - 07), RoomID = "R1" });
-            bookingRepository.Add(new BookingModel { BookingID = "B2", DateFrom = new DateTime(2024, 02, 05), DateTo = new DateTime(2024 - 02 - 09), RoomID = "R2" });
-            bookingRepository.Add(new BookingModel { BookingID = "B3", DateFrom = new DateTime(2024, 02, 10), DateTo = new DateTime(2024 - 02 - 17), RoomID = "R1" });
+
+            DateTime dateFrom = DateTime.Now;
+            DateTime dateTo = DateTime.Now.AddDays(5);
+            bookingRepository.Add(new BookingModel { BookingID = "B1", DateFrom = new DateTime(2024, 02, 01), DateTo = new DateTime(2024, 02, 12), RoomID = "R1" });
+            bookingRepository.Add(new BookingModel { BookingID = "B2", DateFrom = dateFrom.AddDays(3), DateTo = dateTo, RoomID = "R2" });
+            bookingRepository.Add(new BookingModel { BookingID = "B3", DateFrom = dateFrom, DateTo = dateTo, RoomID = "R1" });
+            bookingRepository.Add(new BookingModel { BookingID = "B4", DateFrom = dateFrom, DateTo = dateTo, RoomID = "R5" });
         }
     }
 }

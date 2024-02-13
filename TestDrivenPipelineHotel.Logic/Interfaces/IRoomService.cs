@@ -6,5 +6,6 @@ namespace TestDrivenPipelineHotel.Logic.Interfaces
     {
         List<RoomModel> GetAllRooms();
         public RoomModel GetRoom(string roomID);
+        List<RoomModel> SearchRooms(DateTime dateFrom, DateTime dateTo, string roomType);
     }
 }
