@@ -19,9 +19,7 @@ namespace TestDrivenPipelineHotel.Data.Repositories
 
         public RoomModel? GetRoomById(string id)
         {
-            try { return FakeDatabase.Rooms.FirstOrDefault(room => room.RoomID == id); }
-
-
+            return FakeDatabase.Rooms.FirstOrDefault(room => room.RoomID == id);
         }
 
     }

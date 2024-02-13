@@ -18,17 +18,20 @@ namespace TestDrivenPipelineHotel.Logic.Services
             return _roomRepository.GetAllRooms();
         }
 
-        public RoomModel GetRoom(string roomId)
+        public RoomModel GetRoom(string roomID)
         {
-            try
+            if (string.IsNullOrWhiteSpace(roomID))
             {
-                return _roomRepository.GetRoomById(roomId);
-            }
-            catch (Exception)
-            {
-                throw new ArgumentException(); // TODO Vet inte om det är detta jag vill retunera.
+                throw new InvalidDataException("RoomID cannot be null or an empty string.");
             }
 
+            var room = _roomRepository.GetRoomById(roomID);
+            if (room == null)
+            {
+                throw new KeyNotFoundException($"No room found with ID {roomID}.");
+            }
+
+            return room;
         }
 
         public List<RoomModel> SearchRoom(DateTime dateFrom, DateTime dateTo, string roomType)

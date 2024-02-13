@@ -57,18 +57,33 @@ namespace TestDrivenPipelineHotel.Tests
         }
 
         [Fact]
-        public void GetRoom_ShouldTrowException()
+        public void GetRoom_ShouldTrowInvalidDataException()
         {
             // Given
             // Setup in constructor
             var roomID = "";
 
             // When
-            var room = _roomService.GetRoom(roomID);
+            Action action = () => _roomService.GetRoom(roomID);
 
             // Then
-            room.Should().BeOfType<ArgumentException>();
+            action.Should().Throw<InvalidDataException>().WithMessage("RoomId cannot be null or an empty string.");
         }
+
+        [Fact]
+        public void GetRoom_ShouldTrowKeyNotFoundException()
+        {
+            // Given
+            // Setup in constructor
+            var roomID = "FelID";
+
+            // When
+            Action action = () => _roomService.GetRoom(roomID);
+
+            // Then
+            action.Should().Throw<KeyNotFoundException>($"No room found with ID {roomID}.");
+        }
+
         // Given
         // Setup in constructor
         // When
