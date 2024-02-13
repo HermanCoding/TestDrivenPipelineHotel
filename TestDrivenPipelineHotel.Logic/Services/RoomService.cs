@@ -20,6 +20,7 @@ namespace TestDrivenPipelineHotel.Logic.Services
 
         public RoomModel GetRoom(string roomID)
         {
+            // You shall not pass!! (guard clause)
             if (string.IsNullOrWhiteSpace(roomID))
             {
                 throw new InvalidDataException("RoomID cannot be null or an empty string.");

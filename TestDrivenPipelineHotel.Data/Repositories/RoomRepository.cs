@@ -5,8 +5,6 @@ namespace TestDrivenPipelineHotel.Data.Repositories
 {
     public class RoomRepository : IRoomRepository
     {
-        public Exception? RoomException { get; set; }
-
         public void Add(RoomModel room)
         {
             FakeDatabase.Rooms.Add(room);

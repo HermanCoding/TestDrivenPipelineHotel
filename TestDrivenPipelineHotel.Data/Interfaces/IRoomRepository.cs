@@ -7,6 +7,5 @@ namespace TestDrivenPipelineHotel.Data.Interfaces
         public void Add(RoomModel room);
         List<RoomModel> GetAllRooms();
         public RoomModel? GetRoomById(string id);
-        public Exception? RoomException { get; set; }
     }
 }

@@ -42,6 +42,35 @@ namespace TestDrivenPipelineHotel.Tests
         }
 
         [Fact]
+        public void GetAllRooms_ShouldReturnARoomR3InResult_ReturnsCorrectRoomData()
+        {
+            // Given
+            // Setup in constructor
+
+            // When
+            var rooms = _roomService.GetAllRooms();
+
+            // Then
+            var expectedId = "R3";
+            rooms.Should().ContainSingle(room => room.RoomID == expectedId);
+        }
+
+        [Fact]
+        public void GetAllRooms_WithNoRooms_ReturnsEmptyList()
+        {
+            // Given
+            // Setup in constructor
+            FakeDatabase.Rooms.Clear();
+
+            // When
+            var rooms = _roomService.GetAllRooms();
+
+            // Then
+            rooms.Should().BeEmpty();
+        }
+
+
+        [Fact]
         public void GetRoom_ReturnsRoomModel()
         {
             // Given
@@ -56,18 +85,19 @@ namespace TestDrivenPipelineHotel.Tests
             room.Should().BeOfType<RoomModel>();
         }
 
-        [Fact]
-        public void GetRoom_ShouldTrowInvalidDataException()
+        [Theory]
+        [InlineData(null)]
+        [InlineData(" ")]
+        [InlineData("\t")]
+        public void GetRoom_WithNullOrWhitespaceId_ThrowsInvalidDataException(string roomId)
         {
-            // Given
-            // Setup in constructor
-            var roomID = "";
+            // Given setup in constructor
 
             // When
-            Action action = () => _roomService.GetRoom(roomID);
+            Action action = () => _roomService.GetRoom(roomId);
 
             // Then
-            action.Should().Throw<InvalidDataException>().WithMessage("RoomId cannot be null or an empty string.");
+            action.Should().Throw<InvalidDataException>().WithMessage("RoomID cannot be null or an empty string.");
         }
 
         [Fact]
@@ -82,6 +112,22 @@ namespace TestDrivenPipelineHotel.Tests
 
             // Then
             action.Should().Throw<KeyNotFoundException>($"No room found with ID {roomID}.");
+        }
+
+        [Theory]
+        [InlineData("R2")]
+        [InlineData("R3")]
+        public void GetRoom_WithValidId_ReturnsExpectedRoom(string roomId)
+        {
+            // Given
+            // Setup in constructor
+
+            // When
+            var room = _roomService.GetRoom(roomId);
+
+            // Then
+            room.Should().NotBeNull();
+            room.RoomID.Should().Be(roomId);
         }
 
         // Given
