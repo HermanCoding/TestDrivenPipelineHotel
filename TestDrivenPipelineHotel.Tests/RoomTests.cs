@@ -248,7 +248,7 @@ namespace TestDrivenPipelineHotel.Tests
             // Setup in constructor
             DateTime dateFrom = DateTime.Now.AddDays(1);
             DateTime dateTo = DateTime.Now.AddDays(2);
-            string roomType = "   "; // Whitespace string
+            string roomType = "   ";
 
             // When
             Action action = () => _roomService.SearchRooms(dateFrom, dateTo, roomType);

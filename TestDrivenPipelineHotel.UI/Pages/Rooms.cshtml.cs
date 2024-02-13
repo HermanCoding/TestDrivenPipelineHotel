@@ -1,18 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using TestDrivenPipelineHotel.Logic.Interfaces;
+using TestDrivenPipelineHotel.UI.ViewModels;
 
 namespace TestDrivenPipelineHotel.UI.Pages
 {
-    public class PrivacyModel : PageModel
+    public class RoomDetailsModel : PageModel
     {
-        private readonly ILogger<PrivacyModel> _logger;
+        private readonly IRoomService _roomService;
+        public List<RoomDetailsViewModel> RoomDetails { get; set; }
 
-        public PrivacyModel(ILogger<PrivacyModel> logger)
+        public RoomDetailsModel(IRoomService roomService)
         {
-            _logger = logger;
+            _roomService = roomService;
         }
 
         public void OnGet()
         {
+            var roomDetailsDTOs = _roomService.GetAllRoomDetails();
+            RoomDetails = roomDetailsDTOs.Select(dto => new RoomDetailsViewModel
+            {
+                RoomID = dto.RoomID,
+                TypeName = dto.TypeName,
+                Price = dto.Price,
+                Description = dto.Description
+            }).ToList();
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using TestDrivenPipelineHotel.Data;
 using TestDrivenPipelineHotel.Data.Interfaces;
 using TestDrivenPipelineHotel.Data.Models;
+using TestDrivenPipelineHotel.Logic.DTO;
 using TestDrivenPipelineHotel.Logic.Interfaces;
 
 namespace TestDrivenPipelineHotel.Logic.Services
@@ -8,15 +9,40 @@ namespace TestDrivenPipelineHotel.Logic.Services
     public class RoomService : IRoomService
     {
         private readonly IRoomRepository _roomRepository;
+        private readonly IRoomTypeRepository _roomTypeRepository;
 
         public RoomService(IRoomRepository roomRepository, IRoomTypeRepository roomTypeRepository)
         {
             _roomRepository = roomRepository;
+            _roomTypeRepository = roomTypeRepository;
         }
 
         public List<RoomModel> GetAllRooms()
         {
             return _roomRepository.GetAllRooms();
+        }
+
+        private List<RoomTypeModel> GetAllRoomTypes()
+        {
+            return _roomTypeRepository.GetAllRoomTypes();
+        }
+
+        public List<RoomDetailsDTO> GetAllRoomDetails()
+        {
+            var rooms = _roomRepository.GetAllRooms();
+            var roomTypes = _roomTypeRepository.GetAllRoomTypes();
+
+            var roomDetails = from room in rooms
+                              join type in roomTypes on room.RoomTypeID equals type.TypeID
+                              select new RoomDetailsDTO
+                              {
+                                  RoomID = room.RoomID,
+                                  TypeName = type.TypeName,
+                                  Price = room.Price,
+                                  Description = type.Description
+                              };
+
+            return roomDetails.ToList();
         }
 
         public RoomModel GetRoom(string roomID)

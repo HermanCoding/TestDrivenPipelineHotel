@@ -1,31 +1,24 @@
 ﻿@page
-@using TestDrivenPipelineHotel.Data
-@model PrivacyModel
+@model TestDrivenPipelineHotel.UI.Pages.RoomDetailsModel
 @{
-    ViewData["Title"] = "Rooms";
+    ViewData["Title"] = "Room Details";
 }
+
 <h1>Our Rooms</h1>
-@if (FakeDatabase.Rooms.Any())
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Room ID</th>
-                <th>Type Name</th>
-                <th>Price</th>
-				<th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var roomDetail in FakeDatabase.Rooms)
-            {
-                <tr>
-@*                     <td>@roomDetail.RoomID</td>
-                    <td>@roomDetail.TypeName</td>
-                    <td>@roomDetail.Price.ToString("C")</td>
-                    <td>@roomDetail.Description</td> *@
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+<table>
+    <tr>
+        <th>Room ID</th>
+        <th>Type Name</th>
+        <th>Price</th>
+        <th>Description</th>
+    </tr>
+    @foreach (var room in Model.RoomDetails)
+    {
+        <tr>
+            <td>@room.RoomID</td>
+            <td>@room.TypeName</td>
+            <td>@room.Price.ToString()</td>
+            <td>@room.Description</td>
+        </tr>
+    }
+</table>
