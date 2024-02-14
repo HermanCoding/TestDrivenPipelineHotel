@@ -1,4 +1,31 @@
 ﻿@page
 @model TestDrivenPipelineHotel.UI.Pages.AvailableRoomsModel
 @{
+    ViewData["Title"] = "Available Rooms";
 }
+
+<h1>Available Rooms</h1>
+<div>
+    <p>Room Type: @Model.RoomType</p>
+    <p>From Date: @Model.FromDate.ToShortDateString()</p>
+    <p>To Date: @Model.ToDate.ToShortDateString()</p>
+
+    <!-- Display available rooms here -->
+</div>
+@* <table>
+    <tr>
+        <th>Room ID</th>
+        <th>Type Name</th>
+        <th>Price</th>
+        <th>Description</th>
+    </tr>
+    @foreach (var room in Model.RoomDetails)
+    {
+        <tr>
+            <td>@room.RoomID</td>
+            <td>@room.TypeName</td>
+            <td>@room.Price.ToString()</td>
+            <td>@room.Description</td>
+        </tr>
+    }
+</table> *@

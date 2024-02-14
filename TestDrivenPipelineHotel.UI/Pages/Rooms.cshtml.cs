@@ -4,12 +4,12 @@ using TestDrivenPipelineHotel.UI.ViewModels;
 
 namespace TestDrivenPipelineHotel.UI.Pages
 {
-    public class RoomDetailsModel : PageModel
+    public class RoomsModel : PageModel
     {
         private readonly IRoomService _roomService;
         public List<RoomDetailsViewModel> RoomDetails { get; set; }
 
-        public RoomDetailsModel(IRoomService roomService)
+        public RoomsModel(IRoomService roomService)
         {
             _roomService = roomService;
         }
@@ -26,5 +26,4 @@ namespace TestDrivenPipelineHotel.UI.Pages
             }).ToList();
         }
     }
-
 }
