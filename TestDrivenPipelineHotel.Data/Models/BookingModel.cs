@@ -5,10 +5,9 @@ namespace TestDrivenPipelineHotel.Data.Models
     public class BookingModel
     {
         [Key]
-        public string BookingID { get; set; }
-        public DateTime CheckInDate { get; set; }
-        public DateTime CheckOutDate { get; set; }
-        public string RoomID { get; set; }
-        public RoomModel Room { get; set; }
+        public required string BookingID { get; set; }
+        public required DateTime DateFrom { get; set; }
+        public required DateTime DateTo { get; set; }
+        public required string RoomID { get; set; }
     }
 }

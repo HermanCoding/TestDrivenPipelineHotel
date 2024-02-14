@@ -1,0 +1,26 @@
+﻿@page
+@using TestDrivenPipelineHotel.Data
+@model TestDrivenPipelineHotel.UI.Pages.RoomModel
+@{
+    ViewData["Title"] = "Room Details";
+}
+
+<h1>Room Details</h1>
+
+<div>
+    <h2>Room ID: @Model.RoomDetail.RoomID</h2>
+    <p>Type: @Model.RoomDetail.TypeName</p>
+    <p>Price: @Model.RoomDetail.Price</p>
+    <p>Description: @Model.RoomDetail.Description</p>
+    <p>Available From: @Model.FromDate.ToShortDateString()</p>
+    <p>Available To: @Model.ToDate.ToShortDateString()</p>
+</div>
+<br />
+<form method="post">
+    <input type="hidden" name="RoomID" value="@Model.RoomDetail.RoomID" />
+    <input type="hidden" name="FromDate" value="@Model.FromDate" />
+    <input type="hidden" name="ToDate" value="@Model.ToDate" />
+    <button type="submit">BOOK room</button>
+</form>
+<br />
+<a asp-page="/Index">Back to Home</a>
