@@ -9,12 +9,8 @@ namespace TestDrivenPipelineHotel.UI.Pages
     public class AvailableRoomsModel : PageModel
     {
         private readonly IRoomService _roomService;
-        public List<RoomDetailsViewModel> RoomDetails { get; set; }
+        public List<RoomDetailsViewModel> RoomDetails { get; set; } = new List<RoomDetailsViewModel>();
 
-        public AvailableRoomsModel(IRoomService roomService)
-        {
-            _roomService = roomService;
-        }
         [BindProperty(SupportsGet = true)]
         public string RoomType { get; set; }
 
@@ -23,10 +19,32 @@ namespace TestDrivenPipelineHotel.UI.Pages
 
         [BindProperty(SupportsGet = true), DataType(DataType.Date)]
         public DateTime ToDate { get; set; }
-
-        public void OnGet()
+        public AvailableRoomsModel(IRoomService roomService)
         {
-            // Your logic here, e.g., fetching available rooms based on the parameters
+            _roomService = roomService;
+        }
+        public IActionResult OnGet()
+        {
+            try
+            {
+                var roomDetailsDTOs = _roomService.GetAllRoomDetails(_roomService.SearchRooms(FromDate, ToDate, RoomType));
+                RoomDetails = roomDetailsDTOs.Select(dto => new RoomDetailsViewModel
+                {
+                    RoomID = dto.RoomID,
+                    TypeName = dto.TypeName,
+                    Price = dto.Price,
+                    Description = dto.Description
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+            }
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            return Page();
         }
     }
 }

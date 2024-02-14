@@ -5,14 +5,8 @@
 }
 
 <h1>Available Rooms</h1>
-<div>
-    <p>Room Type: @Model.RoomType</p>
-    <p>From Date: @Model.FromDate.ToShortDateString()</p>
-    <p>To Date: @Model.ToDate.ToShortDateString()</p>
-
-    <!-- Display available rooms here -->
-</div>
-@* <table>
+<div asp-validation-summary="All" class="text-danger"></div>
+<table>
     <tr>
         <th>Room ID</th>
         <th>Type Name</th>
@@ -28,4 +22,4 @@
             <td>@room.Description</td>
         </tr>
     }
-</table> *@
+</table>

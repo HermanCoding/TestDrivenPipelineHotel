@@ -6,20 +6,3 @@
 }
 
 <h1>Room</h1>
-<table>
-    <tr>
-        <th>Room ID</th>
-        <th>Type Name</th>
-        <th>Price</th>
-        <th>Description</th>
-    </tr>
-    @foreach (var room in Model.RoomDetails)
-    {
-        <tr>
-            <td>@room.RoomID</td>
-            <td>@room.TypeName</td>
-            <td>@room.Price.ToString()</td>
-            <td>@room.Description</td>
-        </tr>
-    }
-</table>

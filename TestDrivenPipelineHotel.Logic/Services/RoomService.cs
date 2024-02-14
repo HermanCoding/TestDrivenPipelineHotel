@@ -22,9 +22,13 @@ namespace TestDrivenPipelineHotel.Logic.Services
             return _roomRepository.GetAllRooms();
         }
 
-        public List<RoomDetailsDTO> GetAllRoomDetails()
+        public List<RoomDetailsDTO> GetAllRoomDetails(List<RoomModel>? input)
         {
-            var rooms = _roomRepository.GetAllRooms();
+            List<RoomModel> rooms;
+            if (input == null)
+            { rooms = _roomRepository.GetAllRooms(); }
+            else
+            { rooms = input; }
             var roomTypes = _roomTypeRepository.GetAllRoomTypes();
 
             var roomDetails = from room in rooms
@@ -78,7 +82,7 @@ namespace TestDrivenPipelineHotel.Logic.Services
 
             // Filter based on room type
             var filteredRoomsByType = allRooms.Where(room =>
-                FakeDatabase.RoomTypes.Any(rt => rt.TypeID == room.RoomTypeID && rt.TypeName == roomType)).ToList();
+                FakeDatabase.RoomTypes.Any(rt => rt.TypeID == room.RoomTypeID && rt.TypeID == roomType)).ToList();
 
             // Filter booked rooms
             var availableRooms = filteredRoomsByType.Where(room =>

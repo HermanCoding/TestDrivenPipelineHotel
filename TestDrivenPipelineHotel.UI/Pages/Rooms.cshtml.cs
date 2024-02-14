@@ -16,7 +16,7 @@ namespace TestDrivenPipelineHotel.UI.Pages
 
         public void OnGet()
         {
-            var roomDetailsDTOs = _roomService.GetAllRoomDetails();
+            var roomDetailsDTOs = _roomService.GetAllRoomDetails(null);
             RoomDetails = roomDetailsDTOs.Select(dto => new RoomDetailsViewModel
             {
                 RoomID = dto.RoomID,

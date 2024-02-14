@@ -137,7 +137,7 @@ namespace TestDrivenPipelineHotel.Tests
             // Setup in constructor
             DateTime dateFrom = DateTime.Now.AddMinutes(30);
             DateTime dateTo = DateTime.Now.AddMinutes(30).AddDays(3);
-            string roomType = "Twin";
+            string roomType = "RT3"; //Twin
 
             // When
             var rooms = _roomService.SearchRooms(dateFrom, dateTo, roomType);
@@ -216,7 +216,7 @@ namespace TestDrivenPipelineHotel.Tests
             // Setup in constructor
             DateTime dateFrom = DateTime.Now;
             DateTime dateTo = DateTime.Now.AddDays(5);
-            string roomType = "Single";
+            string roomType = "RT1"; //Single
 
             // When
             var rooms = _roomService.SearchRooms(dateFrom, dateTo, roomType);
@@ -232,7 +232,7 @@ namespace TestDrivenPipelineHotel.Tests
             // Setup in constructor
             DateTime dateFrom = DateTime.Now.AddDays(1);
             DateTime dateTo = dateFrom;
-            string roomType = "Twin";
+            string roomType = "RT3"; //Twin
 
             // When
             var rooms = _roomService.SearchRooms(dateFrom, dateTo, roomType);
