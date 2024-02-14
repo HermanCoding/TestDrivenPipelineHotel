@@ -22,11 +22,6 @@ namespace TestDrivenPipelineHotel.Logic.Services
             return _roomRepository.GetAllRooms();
         }
 
-        private List<RoomTypeModel> GetAllRoomTypes()
-        {
-            return _roomTypeRepository.GetAllRoomTypes();
-        }
-
         public List<RoomDetailsDTO> GetAllRoomDetails()
         {
             var rooms = _roomRepository.GetAllRooms();

@@ -7,9 +7,8 @@ namespace TestDrivenPipelineHotel.UI.Pages
     public class IndexModel : PageModel
     {
         [BindProperty]
-        public required string RoomType { get; set; } // Assuming this already exists
+        public required string RoomType { get; set; }
 
-        // Add these properties for the date range
         [BindProperty, DataType(DataType.Date)]
         public DateTime FromDate { get; set; }
 
@@ -18,7 +17,8 @@ namespace TestDrivenPipelineHotel.UI.Pages
 
         public void OnGet()
         {
-
+            FromDate = DateTime.Today;
+            ToDate = DateTime.Today;
         }
     }
 }
