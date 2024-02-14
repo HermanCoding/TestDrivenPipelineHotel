@@ -9,10 +9,9 @@ namespace TestDrivenPipelineHotel.Data.Repositories
         {
             FakeDatabase.Bookings.Add(booking);
         }
-
-        public IEnumerable<BookingModel> GetAllBookings()
+        public BookingModel GetBookingById(string bookingId)
         {
-            throw new NotImplementedException();
+            return FakeDatabase.Bookings.FirstOrDefault(b => b.BookingID == bookingId);
         }
     }
 }

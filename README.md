@@ -2,6 +2,9 @@
 
 Detta är en eximinationsuppgift för Objektorienterad programmering - Avancerad (part 2) hos NBI/Handelsakademin.
 
+### Page
+https://testdrivenpipelinehotel.azurewebsites.net/
+
 ### Användarberättelser
 >Berättelse 1:
 >Som en hotellgäst vill jag kunna söka och boka tillgängliga rum via en webbsida.

@@ -99,5 +99,30 @@ namespace TestDrivenPipelineHotel.Logic.Services
 
             return availableRooms;
         }
+
+        public RoomDetailsDTO GetRoomDetails(string roomID)
+        {
+            RoomModel? room = _roomRepository.GetRoomById(roomID);
+            if (room == null)
+            {
+                throw new KeyNotFoundException($"No room found with ID {roomID}.");
+            }
+            RoomTypeModel? roomType = _roomTypeRepository.GetAllRoomTypes().FirstOrDefault(rt => rt.TypeID == room.RoomTypeID);
+
+            if (roomType == null)
+            {
+                throw new KeyNotFoundException($"No room type found with ID {room.RoomTypeID}.");
+            }
+
+            var roomDetails = new RoomDetailsDTO
+            {
+                RoomID = room.RoomID,
+                TypeName = roomType.TypeName,
+                Price = room.Price,
+                Description = roomType.Description
+            };
+
+            return roomDetails;
+        }
     }
 }

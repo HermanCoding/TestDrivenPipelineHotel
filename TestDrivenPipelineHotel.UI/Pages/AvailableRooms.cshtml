@@ -16,10 +16,19 @@
     @foreach (var room in Model.RoomDetails)
     {
         <tr>
-            <td>@room.RoomID</td>
+            <td>
+                <a asp-page="/Room"
+                   asp-route-roomId="@room.RoomID"
+                   asp-route-fromDate="@Model.FromDate.ToString("yyyy-MM-dd")"
+                   asp-route-toDate="@Model.ToDate.ToString("yyyy-MM-dd")">
+                    @room.RoomID
+                </a>
+            </td>
             <td>@room.TypeName</td>
             <td>@room.Price.ToString()</td>
             <td>@room.Description</td>
         </tr>
     }
 </table>
+<br />
+<a asp-page="/Index">Back to Home</a>

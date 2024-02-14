@@ -1,4 +1,20 @@
 ﻿@page
 @model TestDrivenPipelineHotel.UI.Pages.BookedModel
 @{
+    ViewData["Title"] = "Reservation Complete";
 }
+
+<h1>Congratulations your reservation is complete!</h1>
+
+@if (Model.BookingDetails != null)
+{
+    <div>
+        <h2>Booking Details</h2>
+        <p>Booking ID: @Model.BookingDetails.BookingID</p>
+        <p>Room ID: @Model.BookingDetails.RoomID</p>
+        <p>Check-in: @Model.BookingDetails.DateFrom.ToString("yyyy-MM-dd")</p>
+        <p>Check-out: @Model.BookingDetails.DateTo.ToString("yyyy-MM-dd")</p>
+    </div>
+}
+
+<a asp-page="/Index">Back to Home</a>

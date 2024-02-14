@@ -9,5 +9,6 @@ namespace TestDrivenPipelineHotel.Logic.Interfaces
         public List<RoomDetailsDTO> GetAllRoomDetails(List<RoomModel>? input);
         public RoomModel GetRoom(string roomID);
         List<RoomModel> SearchRooms(DateTime dateFrom, DateTime dateTo, string roomType);
+        public RoomDetailsDTO GetRoomDetails(string roomID);
     }
 }
